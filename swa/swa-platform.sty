@@ -1,0 +1,44 @@
+\RequirePackage{etoolbox}
+\RequirePackage{ifthen,ifpdf,ifluatex,ifxetex}
+
+\ifcsundef{ifundefinedorrelax}%
+ {\RequirePackage{scrbase}}%
+ {}
+
+\def\swa@RequireIfPackageExists#1{%
+  \IfFileExists{#1.sty}{\RequirePackage{#1}{}}{}}
+
+\ifthenelse{\boolean{luatex}}%
+  {\swa@RequireIfPackageExists{luatex85}
+   \swa@RequireIfPackageExists{luatexbase}
+   \PreventPackageFromLoading*%
+     [\typeout{pdfcolmk unneccessary on non-pdftex}]%
+     {pdfcolmk}}%
+  {\RequirePackage{morewrites}}
+
+\newif\iftutex
+\ifboolexpr{bool{xetex} or bool{luatex}}%
+  {\tutextrue}%
+  {\tutexfalse}
+\ifboolexpr{bool{tutex}}%
+  {}%
+  {\input glyphtounicode
+   \pdfgentounicode=1
+   \RequirePackage[LGR,OT1,LY1,T1]{fontenc}
+   \RequirePackage[utf8]{inputenx}
+   \input{ix-utf8enc.dfu}
+   \ProvideTextCommandDefault{\textblacksquare}{\vrule \@width .3em \@height .4em \@depth -.1em\relax}
+   \RequirePackage{alphabeta}}
+
+
+%%
+% From titlepage.dtx by Markus Kohm
+%
+\newcommand*{\swa@NowButAfterBeginDocument}{%
+  \if@atdocument
+    \expandafter\@firstofone
+  \else
+    \expandafter\AtBeginDocument
+  \fi
+}
+%

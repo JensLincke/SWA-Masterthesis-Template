@@ -1,0 +1,37 @@
+\RequirePackage[osf,p]{ebgaramond}
+\ifboolexpr{bool{tutex}}{%
+  %\addfontfeatures{RawFeature={+ss06}}
+  \AtBeginDocument{\addfontfeatures{RawFeature={+ss06}}}
+}{}
+\PassOptionsToPackage{cmintegrals,cmbraces}{newtxmath}
+\RequirePackage{newtxmath}
+\RequirePackage{ebgaramond-maths}
+\addtokomafont{subject}{\rmfamily}
+\addtokomafont{disposition}{\rmfamily\mdseries}
+\addtokomafont{descriptionlabel}{\rmfamily}
+\addtokomafont{captionlabel}{\rmfamily}
+\addtokomafont{paragraph}{\itshape}
+\renewcommand*\labelitemii{\normalfont\textendash}
+
+\ifboolexpr{bool{tutex}}{%
+  \providecommand*\ebgaramondtabulartext[1]{{\ebgaramondtabular #1}}
+  \global\let\slshape\itshape\relax
+  \setmonofont[ExternalLocation,
+    Scale=MatchLowercase,Ligatures=TeX,
+    BoldFont={*-Bold},
+    ItalicFont={*-Oblique},
+    BoldItalicFont={*-BoldOblique}
+    ]%
+    {DejaVuSansMono}
+}{%
+  \RequirePackage[scaled=.9]{DejaVuSansMono}
+  \providecommand*\ebgaramondtabulartext[1]{\tabularnums{#1}}
+}
+\addtokomafont{partentrypagenumber}{\ebgaramondtabular}
+\addtokomafont{chapterentrypagenumber}{\ebgaramondtabular}
+\AtBeginDocument{
+  \renewcommand\listingnumberfont{\ebgaramondtabular}
+  \renewcommand\tablefontcommand{\ebgaramondtabular}}
+\RedeclareSectionCommand[tocpagenumberformat=\tabularnums]{section}
+\RedeclareSectionCommand[tocpagenumberformat=\tabularnums]{subsection}
+\RedeclareSectionCommand[tocpagenumberformat=\tabularnums]{subsubsection}

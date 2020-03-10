@@ -1,0 +1,51 @@
+
+\PassOptionsToPackage{autostyle}{csquotes}
+
+%must come before csquotes and does not do harm
+\RequirePackage{lineno}
+
+\RequirePackage{csquotes}
+\def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
+  \hbox{}\nobreak\hfil{#1}%
+  \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
+\renewcommand*{\mktextelp}{{\em[\textellipsis\unkern]}}
+\renewcommand{\mktextelpins}[1]{{\em [\textellipsis #1]}}
+\renewcommand{\mktextinselp}[1]{{[\em #1\textellipsis\unkern]}}
+\renewcommand{\mktextins}[1]{{\em [#1]}}
+\renewcommand{\mktextmod}[1]{{\em [#1]}}
+\renewcommand*{\mkccitation}[1]{~#1}  
+\renewcommand{\mkenddispquote}[2]{#1\signed{\normalfont #2}}
+\newenvironment{swa@itquotation}
+  {\begin{quotation}\em\noindent}
+  {\end{quotation}}
+\newenvironment{swa@itnoquote}
+  {\par\begingroup\em\noindent}
+  {\endgroup\par}
+\newcommand*\SetNoQuoteDisplayquote{\SetBlockEnvironment{swa@itnoquote}}
+\newcommand*\SetQuoteDisplayquote{\SetBlockEnvironment{swa@itquotation}}
+\SetQuoteDisplayquote
+
+
+\PassOptionsToPackage{style=numeric,sortcites,defernumbers=true}{biblatex}
+\AfterPackage{biblatex}{
+  \setcounter{biburlnumpenalty}{7000}%\biburlnumskip=0mu plus 1mu\relax
+  \setcounter{biburllcpenalty}{7000}%\biburllcskip=0mu plus 1mu\relax
+  \setcounter{biburlucpenalty}{8000}%\biburlucskip=0mu plus 1mu\relax
+  \renewcommand*{\subtitlepunct}{\addcolon\space}
+  \@ifpackagelater{biblatex}{2016/03/01}
+    {\ExecuteBibliographyOptions{giveninits=true}}
+    {\ExecuteBibliographyOptions{firstinits=true}}
+  \@ifpackagelater{biblatex}{2016/09/10}%
+    {\@ifpackagelater{biblatex}{2017/12/19}%
+      {\ExecuteBibliographyOptions{urldate=iso,seconds=true}}%
+      {\ExecuteBibliographyOptions{urldate=edtf,seconds=true}}}%
+    {\ExecuteBibliographyOptions{urldate=iso8601}}
+  \ifthenelse{\boolean{@swa@german}}{\def\swa@bibl@lang{ngerman}}{\def\swa@bibl@lang{american}}
+  \ExecuteBibliographyOptions{
+    url=false,%
+    abbreviate=false,%
+    maxnames=99,%
+    language=\swa@bibl@lang,%
+  }
+}
+\BeforeBeginEnvironment{document}{\RequirePackage{biblatex}}

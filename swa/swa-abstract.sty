@@ -1,0 +1,49 @@
+\RequirePackage{swa-language}
+\RequirePackage{swa-platform}
+
+\@ifundefined{abstract}{
+  \newenvironment{abstract}{}{}
+}{}
+
+\@ifundefined{zusammenfassung}{
+  \newenvironment{zusammenfassung}{}{}
+}{}
+
+\ifthenelse{\boolean{xetex}}{
+  \renewenvironment{abstract}{%
+    \begingroup
+    \let\raggedsection\centering
+    \begin{english}
+    \addchap*{\abstractname}
+  }{%
+    \end{english}
+    \endgroup
+  }
+  \renewenvironment{zusammenfassung}{%
+    \begingroup
+    \let\raggedsection\centering
+    \begin{german}
+    \addchap*{\abstractname}
+  }{%
+    \end{german}
+    \endgroup
+  }
+}{%%% non-xetex uses babel.
+  \renewenvironment{abstract}{%
+    \begingroup
+    \let\raggedsection\centering
+    \selectlanguage{english}
+    \addchap*{\abstractname}
+  }{%
+    \endgroup
+  }
+  \renewenvironment{zusammenfassung}{%
+    \begingroup
+    \let\raggedsection\centering
+    \selectlanguage{ngerman}
+    \addchap*{\abstractname}
+  }{%
+    \endgroup
+  }
+}
+%

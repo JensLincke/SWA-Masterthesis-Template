@@ -1,0 +1,30 @@
+\ifboolexpr{bool{tutex}}{%
+  \RequirePackage{unicode-math}
+  \setmainfont[ExternalLocation,%
+      Numbers={Proportional,OldStyle},%
+      UprightFont= *-regular,%
+      BoldFont=*-bold,%
+      ItalicFont=*-italic,%
+      BoldItalicFont=*-bolditalic,%
+      Ligatures={Common,TeX},%
+      ]{texgyrepagella}
+  %
+  % Set a Vera mono descendant as monofont.
+  %
+  \setmonofont[ExternalLocation,
+     Scale=MatchLowercase,Ligatures=TeX,%Microtype,
+      BoldFont={*-Bold},
+      ItalicFont={*-Oblique},
+      BoldItalicFont={*-BoldOblique}
+    ]%
+    {DejaVuSansMono}
+  %\defaultfontfeatures{Scale=MatchLowercase,Microtype,Ligatures=TeX,RawFeature={+calt,+clig,+tlig}}
+    \setmathfont[Numbers=Lining]{TeX Gyre Pagella Math}
+    \unimathsetup{math-style=TeX}
+  }{
+    \RequirePackage[largesc,p,osf]{newpxtext}
+    \RequirePackage[scaled=.84]{DejaVuSansMono}
+    \RequirePackage{newpxmath}
+  }
+\linespread{1.05} % a bit more for Palatino
+

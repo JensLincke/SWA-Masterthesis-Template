@@ -1,0 +1,182 @@
+% Options.
+%
+% Language
+%  en  -  english (default)
+%  de  -  german
+%
+% Modes
+%  draft     - drafting mode, esp for todos
+%  fulldraft - drafting mode, also for listings/graphics, faster
+%  final     - final mode
+%
+%
+% Fonts
+%  lmodern   - Latin Modern, like TeX default
+%  palatino  - Heavier, slightly more readable (default)
+%  garamond  - Lighter than palatino, heavier than latin modern, more readable.
+%
+% Other
+%  print - do not color links
+%  zebralistings - alternating row colors for listings
+%
+\documentclass[%
+internalonly=/ifVTeX/ifundefinedorrelax%
+,draft,master]{swathesis}
+
+\usepackage[backend=biber]{biblatex}
+\addbibresource{thesis.bib}
+
+\usepackage{titlepage}
+\TitlePageStyle[
+subject=master,degree={Master of Science},
+]{hpi-swa}
+
+\supervisors{%
+Prof.\,Dr.\,Jack Hasaname\and %
+Dr.\,John Doe%
+}
+
+% ABGABEDATUM
+% \setdate{2012}{04}{05}
+% \date{\datedate}
+
+\author{Vorname Nachname}
+\location{Berlin}
+\extratitle{\raggedleft Nachname, \\ Titel Kurz\par}
+\title{Der Lange Titel der Arbeit die zu Schreiben Ist}
+\subtitle{Ein Untertitel ist Optional}
+\othertitle{The Long Title of the Work to Be Done}
+\othersubtitle{This is Optionally Optional}
+
+\begin{document}
+\frontmatter
+\maketitle
+\input{abstract}
+\input{acknowledgment}
+\tableofcontents
+\listoffigures
+\listoftables
+\lstlistoflistings
+\listofacronyms %
+\mainmatter
+% HAUPTTEIL
+% \input{introduction}
+% \input{context}
+% \input{solution}
+% \input{implementation}
+% \input{evaluation}
+% \input{relatedwork}
+% \input{conclusion}
+%
+
+% beispiel.
+
+\chapter{Introduction}
+\label{cha:introduction}
+
+\blindtext
+\cite{Kay:2011:PCC:800193.1971922}
+
+\secmissing{Motivation}
+
+\todolist{Outline}{
+\item intro
+\item problem
+\item solution
+\item implementation
+\item eval
+\item related
+\item summary
+}
+
+\todosec{I am missing a section here}
+
+Here goes the foo.\todo{cite here}
+I will talk about what an \ac{api} is in this section.
+Normally, there are different \acp{api}. Not to forget,
+anything can be an \ac{api}. And full: \acf{api}.
+
+\begin{code}[lst:example]{An example code snippet}{float,numbers=left,language=Smalltalk}
+exampleWithNumber: x
+
+"A method that illustrates every part of Smalltalk method syntax
+except primitives. It has unary, binary, and keyword messages,
+declares arguments and temporaries, accesses a global variable
+(but not and instance variable), uses literals (array, character,
+symbol, string, integer, float), uses the pseudo variables
+true false, nil, self, and super, and has sequence, assignment,
+return and cascade. It has both zero argument and one argument blocks."
+
+    |y|
+    true & false not & (nil isNil) ifFalse: [self halt].
+    y := self size + super size.
+    #( #a "a" 1 1.0)
+        do: [:each | Transcript show: (each class name);
+                                 show: ' '].
+     ^ x < y
+\end{code}
+
+\begin{table}
+  \centering
+  \tableinsidecommand
+  \begin{threeparttable}
+    \caption{Differences between things projected and things achieved}
+    \label{tab:things}
+    \begin{tabular}{>{}p{.4\linewidth}@{}c} \toprule
+      Part           & done        \\ \midrule
+      Title          & \y          \\
+      Abstract       & \n          \\
+      Intro          & \y          \\
+      \multicolumn{2}{c}{Rest is not entirely true} \\ \midrule
+      Context        & \y          \\
+      Problem        & \n\tnote{a} \\
+      Solution       & \y          \\
+      Implementation & \y          \\
+      Evaluation     & \n          \\
+      Related Work   & \n          \\
+      Conclusion     & \y          \\ \bottomrule
+    \end{tabular}
+    \begin{tablenotes}
+      \item [a] Just few things missing
+    \end{tablenotes}
+  \end{threeparttable}
+\end{table}
+
+We have nice things: some code in \autoref{lst:example} and some information
+in \autoref{tab:things}.
+
+
+
+\[\nabla \cdot {E} = \frac{\rho}{\varepsilon_0}\]
+\[\nabla \cdot {B} = 0\]
+\[\nabla \times {E} = -\frac {\partial {B}}{\partial t}\]
+\[\nabla \times {B} = \mu_0 {J} + \mu_0\varepsilon_0  \frac{\partial {E}}{\partial t}\]
+
+
+\missingfigure{Make a overview sketch of the whole system}
+
+
+\blinddocument
+
+\printbibliography
+\clearpage
+\appendix
+\input{appendix}
+\backmatter
+\markboth{}\relax
+
+% BAMA-O (2009) §24.8
+%  Am Schluss der Arbeit hat die/der Kandidat/in  zu versichern, dass 
+%  sie/er sie selbstständig verfasst sowie keine anderen Quellen und 
+%  Hilfsmittel als die angegebenen benutzt hat.
+% BAMA-O (2013) §30.6
+%  Am Schluss der Arbeit hat die Kandidatin bzw. der Kandidat zu versichern,
+%  dass sie bzw. er die Arbeit selbstständig verfasst und keine anderen
+%  Quellen und Hilfsmittel als die angegebenen benutzt hat.
+\defaultstatement
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% coding: utf-8
+%%% End:
